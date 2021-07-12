@@ -1,22 +1,33 @@
 package com.example.songr;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class albums {
+    @Autowired
+AlbumRepository albumRepository;
+
+@PostMapping("/albums")
+public RedirectView addAlbum(String title,String artist,int songCount,int length,String imageUrl){
+    Album newAlbum=new Album(title,artist,songCount,length,imageUrl);
+    albumRepository.save(newAlbum);
+    return new RedirectView("/albums");
+}
+
     @GetMapping("/albums")
     public String albums(Model albumModel){
+        List<Album> list=albumRepository.findAll();
+        albumModel.addAttribute("list",list);
 
-        Album album1=new Album("title1","artist1",3,360,"http/imageurl1.com");
-        Album album2=new Album("title2","artist2",3,360,"http/imageurl2.com");
-        Album album3=new Album("title3","artist3",5,360,"http/imageurl3.com");
-        Album[] list={album1,album2,album3};
-albumModel.addAttribute("list",list);
-        return "albums.html";
+
+        return "albums";
     }
 }

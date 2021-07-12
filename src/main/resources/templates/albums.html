@@ -5,6 +5,17 @@
     <title>albums</title>
 </head>
 <body>
+<div>
+    <form th:action="@{/albums}" method="POST">
+        <input type="text" name="title">
+        <input type="text" name="artist">
+        <input type="number" name="songCount">
+        <input type="number" name="length">
+        <input type="text" name="imageUrl">
+        <input type="submit" value="submit">
+
+    </form>
+</div>
   <div th:each="album :${list}">
       <p th:text="${album.title}"></p>
       <p th:text="${album.artist}"></p>
