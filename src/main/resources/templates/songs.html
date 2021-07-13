@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+<form th:action="@{/songs} " method="POST">
+
+    <legend>Add A Song</legend>
+    <label > Title</label>
+    <input number="text" name="title">
+
+    <label > Length (Seconds)</label>
+    <input type="number" name="length">
+
+    <label >Track Number</label>
+    <input type="number" name="trackNumber">
+
+    <input type="submit" value="submit">
+
+</form>
+</div>
+<div th:each="song :${list}">
+    <p th:text="${song.title}"></p>
+    <p th:text="${song.length}"></p>
+    <p th:text="${song.trackNumber}"></p>
+
+    </div>
+
+</body>
+</html>
