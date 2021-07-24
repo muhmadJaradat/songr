@@ -13,7 +13,8 @@ public class Song {
     private int length;
     private int trackNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+            @JoinColumn(name = "album_id")
     private Album album;
 
     public Song(Album album, String title, int length, int trackNumber) {
@@ -21,6 +22,10 @@ public class Song {
         this.title = title;
         this.length = length;
         this.trackNumber = trackNumber;
+    }
+
+    public Song() {
+
     }
 
     public long getId() {

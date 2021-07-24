@@ -1,33 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>albums</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/albums.css">
+
 </head>
 <body>
 <div>
     <form th:action="@{/albums}" method="POST">
+        <label for="title"> Title</label>
         <input type="text" name="title">
+        <label for="artist"> Artist</label>
         <input type="text" name="artist">
+        <label for="songCount">Song Count</label>
         <input type="number" name="songCount">
+        <label for="length">Length</label>
         <input type="number" name="length">
+        <label for="imageUrl">Image Url</label>
         <input type="text" name="imageUrl">
         <input type="submit" value="submit">
 
     </form>
 </div>
-  <div th:each="album :${list}">
-      <p th:text="${album.title}"></p>
-      <p th:text="${album.artist}"></p>
-      <p th:text="${album.songCount}"></p>
-      <p th:text="${album.length}"></p>
-      <img src=th:text="${album.imageUrl}" alt="image">
-      <div th:each="song :${album.getSongs}">
-          <p th:text="${song.title}"></p>
+<div class="flex1">
+  <div th:each="album :${list}" >
+      <div class="container" >
+          <article class="card">
+              <div class="card__img-container">
+                  <img th:src="${album.imageUrl}" alt="Image" class="card__img">
+                  <div class="card__img-underlay"></div>
+              </div>
+
+              <div class="card__content">
+                  <h3 class="card__title" th:text="${album.title}" ></h3>
+                  <p class="card__desc" th:text="${album.songCount}" ></p>
+                  <p class="card__desc" th:text="${album.length}" ></p>
+                  <p>Songs :</p>
+                  <div th:each="song :${album.getSongs}">
+                      <li th:text="${song.title}"></li>
+                  </div>
+                  <div class="card__flex">
+                      <span class="card__author" th:text="${album.artist}"></span>
+                      <a th:href="@{/albums/{albumId}(albumId=${album.getId})}"><span class="fa fa-arrow-right" ></span></a>
+                  </div>
+              </div>
+          </article>
       </div>
-
-
   </div>
+  </div>
+
+
+
 
 
 </body>
